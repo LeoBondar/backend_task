@@ -22,6 +22,7 @@ services:
     user: root
     command: >
       sh -c "mkdir -p /data && touch /data/crm.db && chmod 666 /data/crm.db &&
+      curl -L -o /liquibase/lib/sqlite-jdbc.jar https://github.com/xerial/sqlite-jdbc/releases/download/3.44.1.0/sqlite-jdbc-3.44.1.0.jar &&
       liquibase --defaults-file=/liquibase/changelog/liquibase.properties --searchPath=/liquibase/changelog/ update"
     entrypoint: ""
     volumes:
