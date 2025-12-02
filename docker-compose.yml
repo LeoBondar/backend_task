@@ -22,7 +22,9 @@ services:
     user: root
     command: >
       sh -c "mkdir -p /data && touch /data/crm.db && chmod 666 /data/crm.db &&
-      curl -L -o /liquibase/lib/sqlite-jdbc.jar https://github.com/xerial/sqlite-jdbc/releases/download/3.44.1.0/sqlite-jdbc-3.44.1.0.jar &&
+      curl -L -o /liquibase/lib/sqlite-jdbc.jar https://github.com/xerial/sqlite-jdbc/releases/download/3.46.1.0/sqlite-jdbc-3.46.1.0.jar &&
+      curl -L -o /liquibase/lib/slf4j-api.jar https://repo1.maven.org/maven2/org/slf4j/slf4j-api/2.0.9/slf4j-api-2.0.9.jar &&
+      curl -L -o /liquibase/lib/slf4j-simple.jar https://repo1.maven.org/maven2/org/slf4j/slf4j-simple/2.0.9/slf4j-simple-2.0.9.jar &&
       liquibase --defaults-file=/liquibase/changelog/liquibase.properties --searchPath=/liquibase/changelog/ update"
     entrypoint: ""
     volumes:
