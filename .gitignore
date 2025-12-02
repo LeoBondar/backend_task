@@ -228,4 +228,3 @@ cython_debug/
 /.gitlab-ci.yml
 #/poetry.lock
 /app/tests.py
-poetry.lock
