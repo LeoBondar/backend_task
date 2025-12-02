@@ -1,0 +1,99 @@
+[tool.poetry]
+name = "lead-distribution-crm"
+version = "0.1.0"
+description = "Mini CRM for lead distribution"
+authors = ["Developer <dev@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+# Web
+fastapi = "^0.109.0"
+uvicorn = "^0.27.0"
+
+# DB
+sqlalchemy = "^2.0.0"
+aiosqlite = "^0.19.0"
+
+# Utils
+dependency-injector = "^4.41.0"
+pydantic = "^2.5.0"
+pydantic-settings = "^2.1.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.dev.dependencies]
+# Tests
+coverage = "^7.2.5"
+pytest = "^7.1.2"
+pytest-cov = "^3.0.0"
+diff-cover = "^6.5.1"
+pytest-asyncio = "^0.21.1"
+respx = "^0.20.2"
+pytest-sugar = "^1.0.0"
+asgi-lifespan = "^2.1.0"
+
+# Linters
+mypy = "^1.0.1"
+bandit = "^1.7.4"
+isort = "^5.12.0"
+
+# Formatter
+black = "^22.6.0"
+safety = "^2.3.5"
+
+
+[tool.black]
+line-length = 120
+target-version = ['py311']
+include = '\.pyi?$'
+skip-string-normalization = true
+exclude = '''
+^/(
+  (
+     \.git
+    | \.pytest_cache
+    | \.run
+    | logs
+    | docs
+    | tests/integration
+  )/
+)
+'''
+
+[tool.isort]
+line_length = 120
+force_grid_wrap = 0
+multi_line_output = 3
+use_parentheses = true
+include_trailing_comma = true
+known_first_party = "app"
+default_section = "THIRDPARTY"
+lines_after_imports = -1
+
+[tool.mypy]
+plugins = ["pydantic.mypy"]
+follow_imports = "silent"
+strict_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+check_untyped_defs = true
+no_implicit_reexport = true
+disallow_untyped_defs = true
+disallow_any_generics = true
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+disallow_incomplete_defs = false
+disallow_untyped_defs = false
+
+[tool.pydantic-mypy]
+init_forbid_extra = true
+init_typed = true
+warn_required_dynamic_aliases = true
+warn_untyped_fields = true

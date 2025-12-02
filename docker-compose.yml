@@ -1,0 +1,32 @@
+version: "3.7"
+
+services:
+  app:
+    build:
+      context: .
+      target: prod
+    ports:
+      - "8000:8000"
+    command: [ "make", "local_run" ]
+    environment:
+      DB_URL: "sqlite+aiosqlite:////data/crm.db"
+    volumes:
+      - app-data:/data
+    depends_on:
+      liquibase:
+        condition: service_completed_successfully
+    restart: unless-stopped
+
+  liquibase:
+    image: liquibase/liquibase
+    user: root
+    command: >
+      sh -c "mkdir -p /data && touch /data/crm.db && chmod 666 /data/crm.db &&
+      liquibase --defaults-file=/liquibase/changelog/liquibase.properties --searchPath=/liquibase/changelog/ update"
+    entrypoint: ""
+    volumes:
+      - ./migrations/:/liquibase/changelog/
+      - app-data:/data
+
+volumes:
+  app-data:
